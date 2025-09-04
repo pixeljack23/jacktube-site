@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JackTube 🎮</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+      text-align: center;
+    }
+
+    header {
+      padding: 2rem;
+      background: #1a1a1a;
+      border-bottom: 2px solid #ff0000;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #ff0000;
+    }
+
+    .video-section {
+      margin: 2rem auto;
+      max-width: 800px;
+      padding: 1rem;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      background: #1a1a1a;
+      border-top: 2px solid #ff0000;
+      font-size: 0.9rem;
+    }
+  </style>
+
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+    // 🔑 Replace with your actual Supabase project URL & anon key
+    const SUPABASE_URL = "https://mixqxyrduuwzfuozxaoh.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1peHF4eXJkdXV3emZ1b3p4YW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1NjMwNjQsImV4cCI6MjA3MjEzOTA2NH0.RWLHZTqBhFiOlY60KW-UgNWHxmgI2uPv8JW3OA_CIsc";
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function loadVideo() {
+      const { data, error } = await supabase
+        .from("sitecontent")
+        .select("video_url")
+        .order("created_at", { ascending: false })
+        .limit(1);
+
+      if (error) {
+        console.error("Error fetching video:", error);
+        return;
+      }
+
+      const videoFrame = document.getElementById("videoFrame");
+
+      if (data && data.length > 0) {
+        videoFrame.src = data[0].video_url;
+      } else {
+        // fallback video if none exists
+        videoFrame.src = "https://www.youtube.com/embed/dQw4w9WgXcQ";
+      }
+    }
+
+    loadVideo();
+  </script>
+</head>
+<body>
+  <header>
+    <h1>JackTube 🎮</h1>
+    <p>Latest gaming videos & content</p>
+  </header>
+
+  <main>
+    <section class="video-section">
+      <h2>Featured Video</h2>
+      <div class="video-wrapper">
+        <iframe id="videoFrame" src="" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 JackTube. All rights reserved.</p>
+  </footer>
+</body>
+</html>

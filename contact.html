@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | JackTube 🎮</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Contact JackTube 🎮 for collaborations, support, and gaming inquiries." />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+      text-align: center;
+    }
+    header {
+      background: #1a1a1a;
+      border-bottom: 2px solid #ff0000;
+      padding: 1rem;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #ff0000;
+    }
+    nav {
+      background: #111;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.8rem;
+      border-bottom: 1px solid #ff0000;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #ff0000;
+    }
+    .contact-section {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #1a1a1a;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input, textarea {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      font-size: 1rem;
+    }
+    input[type="text"], input[type="email"], textarea {
+      background: #0d0d0d;
+      color: #fff;
+      border: 1px solid #ff0000;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    button {
+      padding: 0.8rem;
+      background: #ff0000;
+      color: #fff;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #cc0000;
+    }
+    .success, .error {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    .success { color: #00ff99; }
+    .error { color: #ff4444; }
+    footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      background: #1a1a1a;
+      border-top: 2px solid #ff0000;
+      font-size: 0.9rem;
+    }
+  </style>
+
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+    const SUPABASE_URL = "https://mixqxyrduuwzfuozxaoh.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1peHF4eXJkdXV3emZ1b3p4YW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1NjMwNjQsImV4cCI6MjA3MjEzOTA2NH0.RWLHZTqBhFiOlY60KW-UgNWHxmgI2uPv8JW3OA_CIsc"; // replace with your anon key
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("contactForm");
+      const successMsg = document.getElementById("successMsg");
+      const errorMsg = document.getElementById("errorMsg");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
+
+        if (!name || !email || !message) {
+          errorMsg.textContent = "⚠️ Please fill in all fields.";
+          errorMsg.style.display = "block";
+          successMsg.style.display = "none";
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from("messages")
+          .insert([{ name, email, message }]);
+
+        if (error) {
+          console.error("Supabase insert error:", error);
+          errorMsg.textContent = "❌ Failed to send message. Try again later.";
+          errorMsg.style.display = "block";
+          successMsg.style.display = "none";
+        } else {
+          successMsg.textContent = "✅ Message sent successfully!";
+          successMsg.style.display = "block";
+          errorMsg.style.display = "none";
+          form.reset();
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <h1>JackTube 🎮</h1>
+    <p>Get in Touch</p>
+  </header>
+
+  <!-- Nav -->
+  <nav>
+    <a href="index.html">Home</a>
+   
+  </nav>
+
+  <main>
+    <section class="contact-section">
+      <h2>Contact Me</h2>
+      <p>Want to collaborate, send feedback, or just say hi? Fill out the form below 👇</p>
+
+      <form id="contactForm">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+
+      <p id="successMsg" class="success" style="display:none;"></p>
+      <p id="errorMsg" class="error" style="display:none;"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 JackTube. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -45,6 +45,23 @@
       width: 100%;
       height: 100%;
     }
+    nav {
+      background: #111;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.8rem;
+      border-bottom: 1px solid #ff0000;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #ff0000;
+    }
 
     footer {
       margin-top: 3rem;
@@ -94,6 +111,13 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
     <h1>JackTube 🎮</h1>
     <p>Latest gaming videos & content</p>
   </header>
+  <nav>
+    <a href="https://discord.gg/YOURDISCORD" target="_blank">Discord</a>
+    <a href="/contact.html">Contact</a>
+    <a href="https://patreon.com/YOURPATREON" target="_blank">Become a Patron</a>
+    <a href="https://www.buymeacoffee.com/YOURNAME" target="_blank">Buy Me a Coffee ☕</a>
+  </nav>
+
 
   <main>
     <section class="video-section">

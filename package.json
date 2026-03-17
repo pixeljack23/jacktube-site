@@ -1,0 +1,20 @@
+{
+  "name": "jacktube-site",
+  "version": "1.0.0",
+  "description": "Node replica of the JackTube site",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "start:admin": "node admin-server.js",
+    "dev:admin": "node --watch admin-server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.8",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "vite": "^8.0.0"
+  }
+}

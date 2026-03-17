@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <meta name="description" content="Contact PixelJack23 for collaborations, support, and gaming inquiries." />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>PixelJack23 🎮</h1>
+    <p>Get in Touch</p>
+  </header>
+
+  <div class="icon-bar" aria-label="Quick links">
+    <a class="icon-button" href="/" aria-label="Home">
+      <span class="icon-fallback" aria-hidden="true">⌂</span>
+      <span class="sr-only">Home</span>
+    </a>
+
+    <a class="icon-button" href="<%= discordUrl %>" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+      <img class="icon-img" src="/icons/discord.png" alt="Discord" />
+    </a>
+
+    <a class="icon-button" href="<%= patreonUrl %>" target="_blank" rel="noopener noreferrer" aria-label="Patreon">
+      <img class="icon-img" src="/icons/patreon.png" alt="Patreon" />
+    </a>
+
+    <a class="icon-button" href="<%= coffeeUrl %>" target="_blank" rel="noopener noreferrer" aria-label="Buy Me a Coffee">
+      <img class="icon-img" src="/icons/Buymeacoffee.png" alt="Buy Me a Coffee" />
+    </a>
+  </div>
+
+  <main>
+    <section class="contact-section">
+      <h2>Contact Me</h2>
+      <p>Want to collaborate, send feedback, or just say hi? Fill out the form below.</p>
+
+      <form method="POST" action="/contact">
+        <input
+          type="text"
+          name="website"
+          class="honeypot"
+          tabindex="-1"
+          autocomplete="off"
+        />
+
+        <label for="name">Your Name</label>
+        <input
+          id="name"
+          type="text"
+          name="name"
+          value="<%= values.name %>"
+          placeholder="Your Name"
+          maxlength="100"
+          required
+        />
+
+        <label for="email">Your Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          value="<%= values.email %>"
+          placeholder="Your Email"
+          maxlength="150"
+          required
+        />
+
+        <label for="message">Your Message</label>
+        <textarea
+          id="message"
+          name="message"
+          placeholder="Your Message"
+          maxlength="2000"
+          required
+        ><%= values.message %></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+
+      <% if (success) { %>
+        <p class="success" aria-live="polite"><%= success %></p>
+      <% } %>
+
+      <% if (error) { %>
+        <p class="error" aria-live="polite"><%= error %></p>
+      <% } %>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 PixelJack23. All rights reserved.</p>
+  </footer>
+</body>
+</html>

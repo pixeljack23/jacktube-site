@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <meta name="description" content="Admin panel for updating the featured video and reading messages." />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>PixelJack23 🎮</h1>
+    <p>Admin Panel</p>
+  </header>
+
+  <div class="icon-bar" aria-label="Admin navigation">
+    <a class="icon-button <%= activeTab === 'video' ? 'active' : '' %>" href="/" aria-label="Featured video">
+      <span class="icon-fallback" aria-hidden="true">▶</span>
+      <span class="sr-only">Featured Video</span>
+    </a>
+
+    <a class="icon-button <%= activeTab === 'messages' ? 'active' : '' %>" href="/messages" aria-label="Messages">
+      <span class="icon-fallback" aria-hidden="true">✉</span>
+      <span class="sr-only">Messages</span>
+    </a>
+
+    <a class="icon-button" href="http://127.0.0.1:<%= process.env.PORT || 3005 %>/" aria-label="Open main site">
+      <span class="icon-fallback" aria-hidden="true">⌂</span>
+      <span class="sr-only">Main Site</span>
+    </a>
+  </div>
+
+  <main>
+    <% if (activeTab === 'messages') { %>
+      <section class="contact-section">
+        <h2>Messages</h2>
+        <p>Messages submitted from the contact page.</p>
+
+        <% if (messages && messages.length > 0) { %>
+          <div style="overflow-x:auto;">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Message</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% messages.forEach((m) => { %>
+                  <tr>
+                    <td><%= m.created_at || '' %></td>
+                    <td><%= m.name || '' %></td>
+                    <td><%= m.email || '' %></td>
+                    <td style="white-space: pre-wrap;"><%= m.message || '' %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } else { %>
+          <p>No messages found yet.</p>
+        <% } %>
+
+        <% if (error) { %>
+          <p class="error" aria-live="polite"><%= error %></p>
+        <% } %>
+      </section>
+
+    <% } else { %>
+      <section class="contact-section">
+        <h2>Update Featured Video</h2>
+        <p>Paste a YouTube <strong>embed</strong> URL like: <code>https://www.youtube.com/embed/VIDEO_ID</code></p>
+
+        <p><strong>Current video preview:</strong></p>
+        <div class="video-wrapper">
+          <iframe
+            src="<%= currentVideoUrl %>"
+            title="Current featured video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <form method="POST" action="/video">
+          <label for="videoUrl">YouTube Embed URL</label>
+          <input
+            id="videoUrl"
+            type="url"
+            name="videoUrl"
+            value="<%= values.videoUrl %>"
+            placeholder="https://www.youtube.com/embed/VIDEO_ID"
+            required
+          />
+
+          <label for="pin">Admin PIN</label>
+          <input
+            id="pin"
+            type="password"
+            name="pin"
+            placeholder="Admin PIN"
+            required
+          />
+
+          <button type="submit">Update Video</button>
+        </form>
+
+        <% if (success) { %>
+          <p class="success" aria-live="polite"><%= success %></p>
+        <% } %>
+
+        <% if (error) { %>
+          <p class="error" aria-live="polite"><%= error %></p>
+        <% } %>
+      </section>
+    <% } %>
+  </main>
+
+  <footer>
+    <p>© 2025 PixelJack23. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <meta name="description" content="Latest gaming videos & content from PixelJack23." />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>PixelJack23 🎮</h1>
+    <p>Latest gaming videos & content</p>
+  </header>
+
+  <div class="icon-bar" aria-label="Quick links">
+    <a class="icon-button" href="<%= discordUrl %>" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+      <img class="icon-img" src="/icons/discord.png" alt="Discord" />
+    </a>
+
+    <a class="icon-button" href="/contact" aria-label="Contact messages">
+      <span class="icon-fallback" aria-hidden="true">✉</span>
+      <span class="sr-only">Contact</span>
+    </a>
+
+    <a class="icon-button" href="<%= patreonUrl %>" target="_blank" rel="noopener noreferrer" aria-label="Patreon">
+      <img class="icon-img" src="/icons/patreon.png" alt="Patreon" />
+    </a>
+
+    <a class="icon-button" href="<%= coffeeUrl %>" target="_blank" rel="noopener noreferrer" aria-label="Buy Me a Coffee">
+      <img class="icon-img" src="/icons/Buymeacoffee.png" alt="Buy Me a Coffee" />
+    </a>
+  </div>
+
+  <main>
+    <section class="video-section">
+      <h2>Featured Video</h2>
+      <div class="video-wrapper">
+        <iframe
+          id="videoFrame"
+          src="<%= videoUrl %>"
+          title="Featured video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 PixelJack23. All rights reserved.</p>
+  </footer>
+</body>
+</html>
